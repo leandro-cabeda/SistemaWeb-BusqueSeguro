@@ -1,0 +1,91 @@
+<%- include("../../partials/header.ejs") %>
+<%- include("../../partials/navbar.ejs") %>
+
+<div class="container mt-3 mb-5">
+    <h2 class="text-center color-text-w">Contatos</h2>
+    <% if(errs.length>0) { %>
+    <div class="row justify-content-center" id="errsUser">
+        <div class="col-md-8 col-12">
+            <div class="alert alert-danger" role="alert">
+                <strong>Atenção!</strong>
+                <ul>
+                    <% for (var i=0; i < errs.length; i++) { %>
+                    <li><%= errs[i].msg %> </li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <% } %>
+
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <a href="/admin/contacts/new" class="btn btn-success mb-2">
+                <i class="fa fa-plus-square"></i>
+                Criar novo Contato
+            </a>
+            <table class="table table-bordered table-responsive-md text-center color-text">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Email</th>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Telefone</th>
+                        <th>Data Nascimento</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if(contacts.length > 0) 
+                    { 
+                        contacts.forEach(contact => { %>
+
+                    <tr>
+                        <td><%= contact.id %></td>
+                        <td><%= contact.email %></td>
+                        <td><%= contact.nome %></td>
+                        <td><%= contact.cpf %></td>
+                        <td><%= contact.telefone %></td>
+                        <td><%= contact.data_nascimento %></td>
+                        <td class="w-25">
+                            <div class="row">
+                                <div class="col-lg-6 col-12">
+                                    <a href="/admin/contacts/edit/<%= contact.id %>" class="btn btn-warning">
+                                        <i class="fa fa-edit"></i>
+                                        Editar
+                                    </a>
+                                </div>
+                                <div class="col-lg-6 col-12">
+                                    <a onclick="confirmarDelecao(event,this,'esse contato');"
+                                        href="/admin/contacts/delete/<%= contact.id %>"
+                                        class="btn btn-danger">
+                                        <i class="fa fa-trash"></i>
+                                        Deletar
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <% });
+                
+                    }
+                    else 
+                    { %>
+
+                    <tr>
+                        <td colspan="7">
+                            <h2>Sem registros Cadastrados!!</h2>
+                        </td>
+                    </tr>
+
+                    <% } %>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<%- include("../../partials/footer.ejs") %>

@@ -1,0 +1,46 @@
+<%- include("../../partials/header.ejs") %>
+<%- include("../../partials/navbar.ejs") %>
+
+<div class="container mt-3 mb-5">
+    <% if(errs.length>0) { %>
+    <div class="row justify-content-center" id="errsUser">
+        <div class="col-md-6 col-12">
+            <div class="alert alert-danger" role="alert">
+                <strong>Atenção!</strong>
+                <ul>
+                    <% for (var i=0; i < errs.length; i++) { %>
+                    <li><%= errs[i].msg %> </li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <% } %>
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center">Atualização de Contatos</h2>
+                </div>
+                <div class="card-body">
+                    <form action="/admin/contacts/update" method="POST">
+                        <input type="hidden" name="id" value="<%= contact.id %>">
+                        <label for="nome">*Nome:</label>
+                        <input type="text" class="form-control mb-2" value="<%= contact.nome %>" name="nome" placeholder="Insira um nome">
+                        <label for="email">E-mail:</label>
+                        <input type="email" class="form-control mb-2" value="<%= contact.email %>" name="email" placeholder="email@exemplo.com">
+                        <label for="cpf">*CPF:</label>
+                        <input type="text" id="cpf" class="form-control mb-2" value="<%= contact.cpf %>" name="cpf" placeholder="000.000.000-00">
+                        <label for="telefone">Telefone:</label>
+                        <input type="text" id="telefone" class="form-control mb-2" value="<%= contact.telefone %>" name="telefone" placeholder="(00) 0000-0000">
+                        <label for="data_nascimento">Data Nascimento:</label>
+                        <input type="date" class="form-control mb-2" value="<%= contact.data_nascimento %>" name="data_nascimento">
+                        <button type="submit" class="btn btn-block btn-success mt-2">Atualizar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include("../../partials/footer.ejs") %>
